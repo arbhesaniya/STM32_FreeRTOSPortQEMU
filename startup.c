@@ -14,6 +14,9 @@ void HardFault_Handler(void)          __attribute__((weak, alias("Default_Handle
 void MemManage_Handler(void)          __attribute__((weak, alias("Default_Handler")));
 void BusFault_Handler(void)           __attribute__((weak, alias("Default_Handler")));
 void UsageFault_Handler(void)         __attribute__((weak, alias("Default_Handler")));
+void SVCall(void)                     __attribute__((weak, alias("Default_Handler")));
+void PendSV(void)                     __attribute__((weak, alias("Default_Handler")));
+void SysTick(void)                    __attribute__((weak, alias("Default_Handler")));
 
 uint32_t vectors[] __attribute__((section(".isr_vector")))={
     STACK_TOP,
@@ -26,7 +29,12 @@ uint32_t vectors[] __attribute__((section(".isr_vector")))={
     0,  // Reserved
     0,  // Reserved
     0,  // Reserved
-    0   // Reserved
+    0,  // Reserved
+    (uint32_t)&SVCall,
+    0,  // Reserved
+    0,  // Reserved
+    (uint32_t)&PendSV,
+    (uint32_t)&SysTick
 };
 
 void Default_Handler(void) {

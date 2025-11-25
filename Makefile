@@ -1,21 +1,22 @@
-all : main.o startup.o final.elf
+OBJ = main.o\
+	  startup.o\
 
-main.o : main.c
+all : main.elf
+
+%.o : %.c
 	arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -O0 -g -o $@ $^
 
-startup.o : startup.c
-	arm-none-eabi-gcc -c -mcpu=cortex-m3 -mthumb -O0 -g -o $@ $^
 
-final.elf : main.o startup.o
-	arm-none-eabi-gcc -nostdlib -T linkerscript.ld -Wl,-Map=final.map -o $@ $^
-	arm-none-eabi-readelf -a final.elf > final.elf.debug
-	arm-none-eabi-objcopy -O binary final.elf final.bin
+main.elf : $(OBJ)
+	arm-none-eabi-ld -Tlinkerscript.ld $^ -o $@
+	arm-none-eabi-readelf -a $@ > $@.debug
+	arm-none-eabi-objdump -D -S $@ > $@.lst
 
 clean :
-	rm -rf *.o *.elf *.map *.debug *.bin
+	rm -rf *.o *.elf *.map *.debug *.bin *.lst
 
 qemu:
-	qemu-system-arm -M stm32vldiscovery -nographic -kernel final.elf -S -s
+	qemu-system-arm -M stm32vldiscovery -cpu cortex-m3 -nographic -kernel main.elf -S -gdb tcp::1234
 
 gdb:
-	arm-none-eabi-gdb -tui -q final.elf -ex "target remote localhost:1234" 
+	arm-none-eabi-gdb -tui -q main.elf -ex "target remote localhost:1234" 
