@@ -1,7 +1,7 @@
 typedef unsigned int uint32_t;
 
 #define SRAM_START 0x20000000U
-#define SRAM_SIZE  (64U * 1024U) /*64kB*/
+#define SRAM_SIZE  (8U * 1024U) /*8kB*/
 #define SRAM_END ((SRAM_START)+(SRAM_SIZE))
 
 #define STACK_TOP  SRAM_END

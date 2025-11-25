@@ -15,7 +15,7 @@ clean :
 	rm -rf *.o *.elf *.map *.debug *.bin
 
 qemu:
-	qemu-system-arm -M lm3s6965evb -nographic -kernel final.elf -S -s
+	qemu-system-arm -M stm32vldiscovery -nographic -kernel final.elf -S -s
 
 gdb:
 	arm-none-eabi-gdb -tui -q final.elf -ex "target remote localhost:1234" 
