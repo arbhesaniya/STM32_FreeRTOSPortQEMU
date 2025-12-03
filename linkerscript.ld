@@ -14,9 +14,11 @@ SECTIONS
         *(.text)
         *(.text*)
         *(.rodata)
+        *(.rodata*)
         . = ALIGN(4);/*before end of each section make location counter allignment*/
-        _end_text = .;
     }> FLASH
+
+    _end_text = LOADADDR(.data);
 
     .data :
     {
@@ -36,5 +38,9 @@ SECTIONS
         . = ALIGN(4);
         _end_bss = .;
     }> RAM
+
+    
+    __StackTop = ORIGIN(RAM) + LENGTH(RAM);
+    PROVIDE( __stack = __StackTop - 4);
 
 }

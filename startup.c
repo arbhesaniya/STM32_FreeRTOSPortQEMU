@@ -1,11 +1,5 @@
 typedef unsigned int uint32_t;
 
-#define SRAM_START 0x20000000U
-#define SRAM_SIZE  (8U * 1024U) /*8kB*/
-#define SRAM_END ((SRAM_START)+(SRAM_SIZE))
-
-#define STACK_TOP  SRAM_END
-
 void Reset_Handler(void);
 void Default_Handler(void);
 
@@ -14,12 +8,15 @@ void HardFault_Handler(void)          __attribute__((weak, alias("Default_Handle
 void MemManage_Handler(void)          __attribute__((weak, alias("Default_Handler")));
 void BusFault_Handler(void)           __attribute__((weak, alias("Default_Handler")));
 void UsageFault_Handler(void)         __attribute__((weak, alias("Default_Handler")));
-void SVCall(void)                     __attribute__((weak, alias("Default_Handler")));
-void PendSV(void)                     __attribute__((weak, alias("Default_Handler")));
-void SysTick(void)                    __attribute__((weak, alias("Default_Handler")));
+extern void vPortSVCHandler(void);//            __attribute__((weak, alias("Default_Handler")));
+extern void xPortPendSVHandler(void);                  //   __attribute__((weak, alias("Default_Handler")));
+extern void xPortSysTickHandler(void); //__attribute__((weak, alias("Default_Handler")));
+
+extern char __stack;
+
 
 uint32_t vectors[] __attribute__((section(".isr_vector")))={
-    STACK_TOP,
+    (uint32_t)&__stack,
     (uint32_t)&Reset_Handler,
     (uint32_t)&NMI_Handler,
     (uint32_t)&HardFault_Handler,
@@ -30,11 +27,11 @@ uint32_t vectors[] __attribute__((section(".isr_vector")))={
     0,  // Reserved
     0,  // Reserved
     0,  // Reserved
-    (uint32_t)&SVCall,
+    (uint32_t)&vPortSVCHandler,
     0,  // Reserved
     0,  // Reserved
-    (uint32_t)&PendSV,
-    (uint32_t)&SysTick
+    (uint32_t)&xPortPendSVHandler,
+    (uint32_t)&xPortSysTickHandler
 };
 
 void Default_Handler(void) {
