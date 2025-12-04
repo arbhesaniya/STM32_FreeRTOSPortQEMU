@@ -24,7 +24,7 @@ main.elf : $(OBJ)
 	arm-none-eabi-objcopy -O binary main.elf main.bin
 
 clean :
-	rm -rf *.o FreeRTOS-Kernel/*.o FreeRTOS-Kernel/portable/MemMang/*.o FreeRTOS-Kernel/portable/GCC/ARM_CM3/*.o *.elf *.map *.debug *.bin *.lst
+	rm -rf *.o *.elf *.map *.debug *.bin *.lst $(OBJ)
 
 qemu:
 	qemu-system-arm -M stm32vldiscovery -cpu cortex-m3 -nographic -kernel main.elf -S -gdb tcp::1234

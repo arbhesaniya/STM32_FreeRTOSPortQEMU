@@ -3,14 +3,14 @@ typedef unsigned int uint32_t;
 void Reset_Handler(void);
 void Default_Handler(void);
 
-void NMI_Handler(void)                __attribute__((weak, alias("Default_Handler")));
-void HardFault_Handler(void)          __attribute__((weak, alias("Default_Handler")));
-void MemManage_Handler(void)          __attribute__((weak, alias("Default_Handler")));
-void BusFault_Handler(void)           __attribute__((weak, alias("Default_Handler")));
-void UsageFault_Handler(void)         __attribute__((weak, alias("Default_Handler")));
-extern void vPortSVCHandler(void);//            __attribute__((weak, alias("Default_Handler")));
-extern void xPortPendSVHandler(void);                  //   __attribute__((weak, alias("Default_Handler")));
-extern void xPortSysTickHandler(void); //__attribute__((weak, alias("Default_Handler")));
+void NMI_Handler(void)                    __attribute__((weak, alias("Default_Handler")));
+void HardFault_Handler(void)              __attribute__((weak, alias("Default_Handler")));
+void MemManage_Handler(void)              __attribute__((weak, alias("Default_Handler")));
+void BusFault_Handler(void)               __attribute__((weak, alias("Default_Handler")));
+void UsageFault_Handler(void)             __attribute__((weak, alias("Default_Handler")));
+extern void vPortSVCHandler(void);        // from FreeRTOS Porting     
+extern void xPortPendSVHandler(void);     // from FreeRTOS Porting     
+extern void xPortSysTickHandler(void);    // from FreeRTOS Porting 
 
 extern char __stack;
 

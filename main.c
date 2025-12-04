@@ -24,12 +24,15 @@ int main(){
     //Call HWInit() to perform any HW Setup
 
     BaseType_t xReturn;
+
     xReturn = xTaskCreate(vTask1, "T1", configMINIMAL_STACK_SIZE, NULL , 1 , NULL);
     xReturn = xTaskCreate(vTask2, "T2", configMINIMAL_STACK_SIZE, NULL , 1 , NULL);
     
     xPortStartScheduler();
 
-    c=a+b;
+    c = a+b;
+
     while(1); 
+    
     return 0;
 }
