@@ -8,13 +8,15 @@ static void vTask1(void *pvParameters){
     volatile int x=0;
     while(1){
         x++;
-    }
+        vTaskDelay(100);
+    } 
 }
 
 static void vTask2(void *pvParameters){
     volatile int y=0;
     while(1){
         y++;
+        vTaskDelay(100);
     }
 }
 
@@ -25,10 +27,10 @@ int main(){
 
     BaseType_t xReturn;
 
-    xReturn = xTaskCreate(vTask1, "T1", configMINIMAL_STACK_SIZE, NULL , 1 , NULL);
-    xReturn = xTaskCreate(vTask2, "T2", configMINIMAL_STACK_SIZE, NULL , 1 , NULL);
+    xReturn = xTaskCreate(vTask1, "T1", configMINIMAL_STACK_SIZE, NULL , 2 , NULL);
+    xReturn = xTaskCreate(vTask2, "T2", configMINIMAL_STACK_SIZE, NULL , 3 , NULL);
     
-    xPortStartScheduler();
+    vTaskStartScheduler();
 
     c = a+b;
 
