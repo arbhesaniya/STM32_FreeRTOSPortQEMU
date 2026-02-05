@@ -3,6 +3,7 @@ OBJ = main.o \
 	  UserFunc.o \
 	  FreeRTOS-Kernel/tasks.o  \
 	  FreeRTOS-Kernel/list.o  \
+	  FreeRTOS-Kernel/queue.o  \
 	  FreeRTOS-Kernel/portable/MemMang/heap_4.o \
 	  FreeRTOS-Kernel/portable/GCC/ARM_CM3/port.o \
 

@@ -25,3 +25,16 @@ void* __memset_chk(void *dst, int val, unsigned int size, unsigned int dst_size)
     // If the check passes, call the regular memset implementation
     return memset(dst, val, size);
 }
+
+void memcpy(void *dst, const void *src , unsigned int n )
+{
+    const unsigned char *s = (const unsigned char *)src;
+    unsigned char *d = (unsigned char *)dst;
+
+    while(n != 0){
+        *d++ = *s++;
+        n--;
+    }
+    
+    // return dst;
+}
